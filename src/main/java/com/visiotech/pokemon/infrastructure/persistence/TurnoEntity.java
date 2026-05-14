@@ -18,7 +18,7 @@ public class TurnoEntity {
     private Long id;
 
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "atacante_id")
     private PokemonEntity atacante;
 
@@ -29,7 +29,7 @@ public class TurnoEntity {
     private int danio;
     private int psRestantesRival;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "combate_id")
     private CombateEntity combate;
 
