@@ -12,6 +12,7 @@ public interface PokemonRepository {
     Optional<Pokemon> findById(Long id);
     List<Pokemon> findAll();
     void deleteById(Long id);
+    List<Pokemon> findByMovimientoId(Long movimientoId);
 
 
 }

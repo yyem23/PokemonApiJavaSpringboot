@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface MovimientoJpaRepository extends JpaRepository<MovimientoEntity, Long> {
     List<MovimientoEntity> findByTipo(TipoPokemon tipo);
+    List<MovimientoEntity> findByPokemon_Id(Long pokemonId);
 }

@@ -37,6 +37,13 @@ public class PokemonRepositoryImpl implements PokemonRepository {
     }
 
     @Override
+    public List<Pokemon> findByMovimientoId(Long movimientoId){
+        return jpaRepository.findByMovimientos_Id(movimientoId).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteById(Long id) {
         jpaRepository.deleteById(id);
     }

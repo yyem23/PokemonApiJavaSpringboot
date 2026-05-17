@@ -13,4 +13,6 @@ public interface MovimientoRepository {
     List<Movimiento> findAll();
     void deleteById(Long id);
     List<Movimiento> findByTipo(TipoPokemon tipo);
+    List<Movimiento> findByPokemonId(Long pokemonId);
+
 }
