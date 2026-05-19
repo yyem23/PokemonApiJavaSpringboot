@@ -52,5 +52,12 @@ public class MovimientoRepositoryImpl implements MovimientoRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Movimiento> findByPokemonId(Long pokemonId) {
+        return jpaRepository.findByPokemonId(pokemonId).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
 
 }
