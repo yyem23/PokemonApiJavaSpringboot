@@ -24,6 +24,7 @@ public class PokemonController {
     private final ListarPokemonsUseCase listarPokemonsUseCase;
     private final EliminarPokemonUseCase eliminarPokemonUseCase;
     private final MovimientoRepository movimientoRepository;
+    private final ObtenerPokemonsPorMovimientoUseCase obtenerPokemonsPorMovimientoUseCase;
     private final RestMapper restMapper;
 
 
@@ -103,6 +104,14 @@ public class PokemonController {
 
         Pokemon actualizado = guardarPokemonUseCase.execute(pokemon);
         return ResponseEntity.ok(restMapper.toPokemonResponse(actualizado));
+    }
+
+    @GetMapping("/por-movimiento/{movimientoId}")
+    public ResponseEntity<List<PokemonResponseDTO>> obtenerPorMovimiento(@PathVariable Long movimientoId){
+        List<PokemonResponseDTO> response = obtenerPokemonsPorMovimientoUseCase.execute(movimientoId).stream()
+                .map(restMapper::toPokemonResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
 
