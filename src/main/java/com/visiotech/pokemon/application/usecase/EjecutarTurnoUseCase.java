@@ -19,14 +19,14 @@ public class EjecutarTurnoUseCase {
 
     public Combate execute(Long combateId, Long movimientoId) {
         Combate combate = combateRepository.findById(combateId)
-                .orElseThrow(() -> new RuntimeException("Combate no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Combate no encontrado"));
 
         if (combate.getEstado() == EstadoCombate.FINALIZADO) {
-            throw new RuntimeException("El combate ya ha finalizado");
+            throw new IllegalArgumentException("El combate ya ha finalizado");
         }
 
         Movimiento movimiento = movimientoRepository.findById(movimientoId)
-                .orElseThrow(() -> new RuntimeException("Movimiento no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Movimiento no encontrado"));
 
         // Determinar atacante y defensor
         boolean esTurnoPokemon1 = combate.getTurnoDeQuien().equals(combate.getPokemon1().getId());

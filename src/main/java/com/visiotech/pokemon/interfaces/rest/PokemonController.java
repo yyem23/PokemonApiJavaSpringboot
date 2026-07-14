@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.visiotech.pokemon.domain.model.NotFoundException;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class PokemonController {
                 ?Collections.emptyList()
                 : dto.getMovimientoIds().stream()
                   .map(id -> movimientoRepository.findById(id)
-                             .orElseThrow(() -> new RuntimeException("Movimiento no encontrado: " + id)))
+                             .orElseThrow(() -> new NotFoundException("Movimiento no encontrado: " + id)))
                   .collect(Collectors.toList());
 
 
@@ -64,7 +65,7 @@ public class PokemonController {
         return obtenerPokemonUseCase.execute(id)
                 .map(restMapper::toPokemonResponse)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new NotFoundException("Pokemon no encontrado con id: " + id));
     }
 
 
@@ -120,7 +121,4 @@ public class PokemonController {
         eliminarPokemonUseCase.excute(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }

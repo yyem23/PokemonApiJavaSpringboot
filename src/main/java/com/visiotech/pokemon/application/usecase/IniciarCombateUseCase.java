@@ -7,6 +7,7 @@ import com.visiotech.pokemon.domain.repository.CombateRepository;
 import com.visiotech.pokemon.domain.repository.PokemonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.visiotech.pokemon.domain.model.NotFoundException;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,9 @@ public class IniciarCombateUseCase {
 
     public Combate execute(Long pokemon1Id, Long pokemon2Id){
         Pokemon pokemon1 = pokemonRepository.findById(pokemon1Id)
-                .orElseThrow(() -> new RuntimeException("Pokemon 1 no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Pokemon 1 no encontrado"));
         Pokemon pokemon2 = pokemonRepository.findById(pokemon2Id)
-                .orElseThrow(() -> new RuntimeException("Pokemon 2 no encontrado"));
+                .orElseThrow(() -> new NotFoundException("Pokemon 2 no encontrado"));
 
 
         Combate combate = Combate.builder()
