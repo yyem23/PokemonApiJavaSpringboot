@@ -5,6 +5,7 @@ import lombok.*;
 
 
 @Entity
+@Table(name = "TURNO")
 @Getter
 @Setter
 @Builder

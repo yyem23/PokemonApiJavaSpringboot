@@ -14,14 +14,26 @@ public class CombateRepositoryImpl implements CombateRepository{
 
 
     private final CombateJpaRepository jpaRepository;
+    private final TurnoJpaRepository turnoJpaRepository;
     private final CombateMapper mapper;
+    private final TurnoMapper turnoMapper;
 
 
     @Override
     public Combate save(Combate combate){
         CombateEntity entity = mapper.toEntity(combate);
         CombateEntity saved = jpaRepository.save(entity);
-        return mapper.toDomain(saved);
+
+        if(combate.getTurnos() != null && !combate.getTurnos().isEmpty()){
+            System.out.println("Guardando " + combate.getTurnos().size() + " turnos");
+            combate.getTurnos().forEach(turno -> {
+                TurnoEntity turnoEntity = turnoMapper.toEntity(turno, saved);
+                System.out.println("Turno entity: " + turnoEntity);
+                turnoJpaRepository.save(turnoEntity);
+            });
+        }
+
+        return mapper.toDomain(jpaRepository.findById(saved.getId()).orElseThrow());
     }
 
     @Override
@@ -29,15 +41,5 @@ public class CombateRepositoryImpl implements CombateRepository{
         return jpaRepository.findById(id)
                 .map(mapper::toDomain);
     }
-
-
-
-
-
-
-
-
-
-
 
 }

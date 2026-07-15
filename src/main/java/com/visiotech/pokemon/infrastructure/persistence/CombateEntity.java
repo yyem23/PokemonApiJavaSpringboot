@@ -42,7 +42,7 @@ public class CombateEntity {
     @JoinColumn(name = "ganador_id")
     private PokemonEntity ganador;
 
-    @OneToMany(mappedBy = "combate", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "combate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TurnoEntity> turnos;
 
 

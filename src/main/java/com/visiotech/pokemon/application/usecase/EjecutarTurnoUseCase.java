@@ -61,7 +61,7 @@ public class EjecutarTurnoUseCase {
                 : combate.getPokemon1().getId();
 
         // Construir nuevo estado del combate
-        ArrayList<Turno> turnos = new ArrayList<>(combate.getTurnos());
+        ArrayList<Turno> turnos = new ArrayList<>();
         turnos.add(turno);
 
         Combate combateActualizado = Combate.builder()
